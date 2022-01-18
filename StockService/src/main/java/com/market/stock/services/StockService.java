@@ -7,6 +7,7 @@ import java.util.List;
 import com.market.stock.domain.Stock;
 import com.market.stock.repository.StockRepository;
 
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,11 @@ public class StockService {
 
   public List<Stock> saveStocks(List<Stock> stocks) {
     return stockRepository.saveAll(stocks);
-
   }
 
   public List<Stock> getStocksBetweenDates(String companyCode, Instant from, Instant to) {
+    System.out.println(from);
+    System.out.println(to);
     return stockRepository.findByCreatedDateBetween(companyCode, from, to);
   }
 }

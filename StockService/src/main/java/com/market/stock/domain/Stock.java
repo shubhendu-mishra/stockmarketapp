@@ -1,6 +1,6 @@
 package com.market.stock.domain;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,13 +12,13 @@ public class Stock {
   private String id;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  private Date createdDate = new Date();
+  private Instant createdDate = Instant.now();
 
   private String companyCode;
 
   private double fractionalPrice;
 
-  public Date getCreatedDate() {
+  public Instant getCreatedDate() {
     return createdDate;
   }
 

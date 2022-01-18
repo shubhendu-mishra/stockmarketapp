@@ -2,6 +2,8 @@ package com.market.company.controllers;
 
 import java.util.List;
 
+import javax.ws.rs.Path;
+
 import com.market.company.domain.Company;
 import com.market.company.services.CompanyService;
 
@@ -14,24 +16,24 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.v3.oas.annotations.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.*;
 
 @RestController
-@Api(value = "Company", description = "Operations related to Companies in Market Application")
+@Path("/")
+@Tag(name = "Company", description = "Operations related to Companies in Market Application")
 public class CompanyController {
 
   @Autowired
   private CompanyService service;
 
-  @ApiOperation(value = "Add a new company to Market Application", response = Company.class)
+  @Operation(summary = "Add a new company to Market Application")
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successfully added new company"),
-      @ApiResponse(code = 401, message = "You are not authorized to add a new company"),
-      @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-      @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+      @ApiResponse(responseCode = "200", description = "Successfully added new company"),
+      @ApiResponse(responseCode = "401", description = "You are not authorized to add a new company"),
+      @ApiResponse(responseCode = "403", description = "Accessing the resource you were trying to reach is forbidden"),
+      @ApiResponse(responseCode = "404", description = "The resource you were trying to reach is not found")
   })
   @PostMapping("/register")
   public Company addCompany(@RequestBody Company company) {
@@ -39,24 +41,24 @@ public class CompanyController {
 
   }
 
-  @ApiOperation(value = "Delete company by using a valid company code", response = String.class)
+  @Operation(summary = "Delete company by using a valid company code")
   @DeleteMapping("/delete/{companyCode}")
   public String deleteCompanyByCompanyCode(@PathVariable String companyCode) {
     return service.deleteCompanyByCompanyCode(companyCode);
   }
 
-  @ApiOperation(value = "Health Check for Company service", response = String.class)
+  @Operation(summary = "Health Check for Company service")
   public String handshake() {
     return "Company Service is up and running!";
   }
 
-  @ApiOperation(value = "Get list of all companies registered in Market application", response = List.class)
+  @Operation(summary = "Get list of all companies registered in Market application")
   @GetMapping("/getAll")
   public List<Company> findAllCompanys() {
     return service.getCompanies();
   }
 
-  @ApiOperation(value = "Get info of a company by using a valid company code", response = Company.class)
+  @Operation(summary = "Get info of a company by using a valid company code")
   @GetMapping("/info/{companyCode}")
   public Company findCompanyByCompanyCode(@PathVariable String companyCode) {
     return service.getCompanyByCompanyCode(companyCode);

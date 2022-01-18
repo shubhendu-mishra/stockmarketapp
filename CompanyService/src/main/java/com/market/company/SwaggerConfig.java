@@ -1,39 +1,24 @@
 package com.market.company;
 
-import java.util.Collections;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import io.swagger.annotations.Contact;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import io.swagger.v3.oas.models.ExternalDocumentation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
-
   @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.any())
-        .build().apiInfo(apiInfo());
+  public OpenAPI springShopOpenAPI() {
+    return new OpenAPI()
+        .info(new Info().title("Company Service - Market Application")
+            .description("This service handles operations related to Companies")
+            .version("v0.0.1")
+            .license(new License().name("Apache 2.0").url("http://springdoc.org")))
+        .externalDocs(new ExternalDocumentation()
+            .description("Market Application")
+            .url("https://springshop.wiki.github.org/docs"));
   }
-
-  private ApiInfo apiInfo() {
-    return new ApiInfo(
-        "Company Service - Market Application",
-        "This service handles operations related to Companies",
-        "API TOS",
-        "Terms of service",
-        new springfox.documentation.service.Contact("Shubhendu Mishra", "www.example.com", "mish.shubh@gmail.com"),
-        "License of API", "API license URL", Collections.emptyList());
-  }
-
 }

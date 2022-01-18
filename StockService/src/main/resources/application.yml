@@ -1,0 +1,21 @@
+server:
+  port: 0
+  servlet:
+    context-path: /api/v1.0/market/stock
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka
+spring:
+  application:
+    name: StockService
+  data.mongodb:
+    database: stockdb
+    uri: mongodb://localhost:27017
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+springdoc:
+  swagger-ui:
+    enabled: true
+  pathsToMatch: /*, /**

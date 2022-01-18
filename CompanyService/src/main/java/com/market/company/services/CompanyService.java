@@ -34,7 +34,7 @@ public class CompanyService {
     return companyRepository.findCompanyByCompanyCode(companyCode);
   }
 
-  public String deleteCompanyById(String id) {
+  public String deleteCompanyById(int id) {
     companyRepository.deleteById(id);
     return "Company Deleted " + id;
   }
